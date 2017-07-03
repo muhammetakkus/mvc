@@ -14,7 +14,7 @@ $route->route("GET", "/api/user", "Home@index");
 $route->route("GET", "/content", "Home@content");
 $route->route("POST", "/name", "Home@name");
 
-
+$route->route("GET", "/test", "Test@tester");
 
 //$route->route("GET", "/a/.*", "Test@index");
 

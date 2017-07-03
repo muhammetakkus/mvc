@@ -12,23 +12,20 @@ class Home extends Controller
 		{
 			$cache = new Cache();
 
-            if($cache->get("user-name") == false)
-            {
+            $data["test"] = $cache->get("user-name");
+
+            if(!$data["test"])
+			{
+				echo "cache?";
                 //User Model
                 $user = new Users;
                 $name = $user->getName();
 
-                //Modelden aldığımı bilgiyi cache ile yazdırıyoruz
                 $cache->set("user-name",$name,"200");
-            }
+                $data["test"] = $cache->get("user-name");
+			}
 
-            $data["test"] = $cache->get("user-name");
-
-            if($cache->get("aa") == false)
-            {
-                $cache->set("aa","xxcx","1");
-            }
-
+			$cache->set("aa","test cach s s","12");
             $data["aa"] = $cache->get("aa");
 
             $this->view("test", $data);

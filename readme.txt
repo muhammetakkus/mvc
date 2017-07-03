@@ -10,3 +10,5 @@
 
 6-CSRF-TOKEN her post formunda olmak zorunda yoksa csrf kontrolüne takılıyor -bunu opsiyonel yapamadım daha sonra bakılacak
   kullanmak için forma ->  <input type="hidden" name="=_token" value="<?php App\Core\Src\Token::create(); ?>" /> şeklinde dahil edilir
+
+7- controller ve modellerin sınıf isimleri dosya ismiyle aynı olmalı

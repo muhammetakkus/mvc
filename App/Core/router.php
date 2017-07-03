@@ -34,7 +34,7 @@ class Route {
      *
      * @param $request GET|POST
      * @param $pattern /test | /profile/user/34
-     * @param $callable HomeController@index | Clojure
+     * @param $callable HomeController@index | Closure
      */
 
     //$pattern değişkeni nasıl dizi oluyor? - değişken falan değil var olan her route için bu metod çalışıyor

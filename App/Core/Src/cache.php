@@ -3,66 +3,93 @@ namespace App\Core\Src;
 
 class Cache
 {
-    public $key;
-    public $value;
-    public $time;
-    public $cacheKey;
+    public $cacheData;
 
-   /*
-    $cache = new Cache();
-
-    if($cache->get("user-name") == false)
+    function __destruct()
     {
-        $name = "test name";
-        $cache->set("user-name",$name,"60");
+        var_dump($this->cacheData);
     }
-
-    $data = $cache->get("user-name");
-   */
 
     public function set($key,$value,$expiration = 0)
     {
-        $this->key = $key;
-        $this->value = $value;
-        $this->time = $expiration;
+        $file = $this->getDir($key);
 
-        if(in_array($this->key, $this->cacheKey) == false)
+        unset($this->cacheData[$key]);
+
+        $setData = array(
+            'expire' => $expiration,
+            'data' => serialize($value)
+        );
+
+        $this->cacheData[$key] = $setData;
+
+        if(is_array($this->cacheData[$key]))
         {
-            $this->cacheKey[$this->key] = $this->time;
+            if(file_exists($file))
+            {
+                //dosya varsa dosyanın son değiştirilme tarihine bakıyoruz cache süresi geçmişse yeniden yazıyor
+                if($this->is_expire($key) == false) //!file_exist($file)
+                {
+                    unlink($file);
+                    //file_put_contents ~=  fopen(), fwrite() ve fclose()-eğer dosya yoksa oluşturur
+                    $this->write($key);
+                }
+            }else {
+                //dosya yoksa set geldiğinde dosya ilk defa oluşturulmuş olacak
+                $this->write($key);
+            }
         }
-
-        $cacheFile = APP . "Cache/" . md5($this->key) . ".html";
-
-        if(file_exists($cacheFile))
-        {
-            unlink($cacheFile);
-        }
-
-        $data = serialize($this->value);
-
-        //file_put_contents ~=  fopen(), fwrite() ve fclose()-eğer dosya yoksa oluşturur
-        file_put_contents($cacheFile, $data, LOCK_EX);
     }
 
     public function get($key)
     {
-        $this->key = $key;
+        $file = $this->getDir($key);
 
-        $cacheFile = APP . "Cache/" . md5($this->key) . ".html";
-
-        if(file_exists($cacheFile))
+        if(file_exists($file))
         {
-            if(time() > @filemtime($cacheFile) + $this->cacheKey[$this->key])
+            if($this->is_expire($key))
             {
-                echo "cache var";
-                $content = unserialize(file_get_contents($cacheFile));
+                echo "-cache var </br>";
+                $content = unserialize(file_get_contents($file));
                 return $content;
             }else {
-                unset($cacheFile);
+                return false;
             }
         }else {
             return false;
         }
+    }
+
+    /**
+     * @param $key
+     * @return string cache file path
+     */
+    public function getDir($key)
+    {
+        return APP . "Cache/" . md5($key) . ".html";
+    }
+
+    /**
+     * @param $key
+     * write the value on the cache file
+     */
+    public function write($key)
+    {
+        file_put_contents($this->getDir($key), $this->cacheData[$key]['data'], LOCK_EX);
+    }
+
+    /**
+     * @param $key
+     * @return boolean is file exp?
+     */
+    public function is_expire($key)
+    {
+        if(time() < filemtime($this->getDir($key)) + $this->cacheData[$key]['expire'])
+        {
+            return true;
+        }
+
+        return false;
     }
 
 }
