@@ -1,0 +1,49 @@
+/* Container - General Container Content */
+.container
+  max-width: 960px
+  margin: 0 auto
+
+
+/* Clearfix */
+.clearfix
+  clear: both
+  *zoom: 1
+.clearfix:before, .clearfix:after
+  content: ""
+  display: table
+  clear: both
+
+
+/* Alert Box -> Use -> <div class="msg-box error">alert text</div> */
+.msg-box
+  width: 100%
+  padding: 10px
+  margin-top: 10px
+  overflow: hidden
+  font-size: 14px
+  @include border-radius(1px)
+  @extend .box-shadow
+
+.error
+  background: #f55b21
+  color: #dc744a
+
+.success
+  background: #c5ffb1
+  color: #64dc60
+
+
+/* Input-Textarea Style */
+input[type=text],input[type=password],input[type=mail],input[type=search],textarea
+
+
+/* Input-Textarea Focus */
+input[type=text]:focus,input[type=password]:focus,input[type=mail]:focus,input[type=search]:focus,textarea:focus
+
+
+/* Button Style */
+button
+
+
+/* Link */
+a
