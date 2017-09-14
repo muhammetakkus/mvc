@@ -3,34 +3,35 @@
 
 use App\Core\Controller;
 use App\Core\Src\Cache;
-use App\Model\Users;
+use App\Model\User;
 
 class Home extends Controller
     {
-
 		public function index()
 		{
-			$cache = new Cache();
+            $cache = new Cache();
 
-            $data["test"] = $cache->get("user-name");
+            $data["test"] = $cache->get("testerr",30);
 
             if(!$data["test"])
 			{
-				echo "cache?";
-                //User Model
-                $user = new Users;
+                $user = new User;
                 $name = $user->getName();
 
-                $cache->set("user-name",$name,"200");
-                $data["test"] = $cache->get("user-name");
+                $cache->set('testerr', $name);
 			}
 
-			$cache->set("aa","test cach s s","12");
-            $data["aa"] = $cache->get("aa");
-
-            $this->view("test", $data);
+            //cachin yöntemini değiştir
+			//if(!$cache->get("x")){
+			//set işlemi }
+			//get işlemi 
+			//yani kontrol yapıldıktan sonra her türlü get yapılacak
+			//$cache->exixst("key") şeklinde boolean döndüren sadece key kontrolü yapan fonknun olabilir
+			
+			$this->view("test", $data);
 
 		  	//echo "Home/index (index.php?url=home/index)";
+			
 		}
 
 		public function redirect()
@@ -53,5 +54,3 @@ class Home extends Controller
 		}
 
 	}
-
-?>

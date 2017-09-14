@@ -1,10 +1,11 @@
 <?php
 
-use App\Core\Router\Route as Route;
+use App\Core\Router\Route;
 
 $route = new Route;
 
-$route->route("GET", "/", function (){
+/** Routers **/
+$route->route("GET", "/", function() {
     echo "home page";
 });
 

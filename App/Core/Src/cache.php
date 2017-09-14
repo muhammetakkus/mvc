@@ -1,63 +1,80 @@
 <?php
 namespace App\Core\Src;
 
+/* Sorun1 = üstte get tanımlayıp altta kontrol yapılıyor.
+            Sayfayı ilk açıldığında set işlemi olduğu için değer geti alan değişkene depolanamıyor
+            ve ekrana ilk açıldığında bir şey basılamıyor sadece set işlemi yapılıyor
+            2. açılışta key olduğu için get işlemi datayı dönderiyor ekrana basılabiliyor */
+
+/* Sorun2 = set'e gönderilen key değerlerini tutan array sadece set içerisinde keyleri tutuyor
+            örneğin __construct'a var olan keyleri bas diyemiyoruz? glob() ile ekrana basıyor ancak boş?
+
+ * */
+/**
+    $cache = new Cache();
+
+    $val = $cache->get("test_key",30);
+
+    if(!$val)
+    {
+        $user = "test user name or array?";
+
+        $cache->set('test_key', $name);
+    }
+
+    echo $val;
+ */
+
 class Cache
 {
     public $cacheData;
+    private $cacheDirectory = APP . "Cache";
+    private $cacheExp = 900; /* 15 minutes */
 
     function __destruct()
     {
         var_dump($this->cacheData);
     }
 
-    public function set($key,$value,$expiration = 0)
+    /* set işlemi yaparken kontrol yapmadan yazıyoruz - get($key,$exp) fonksiyonunun false olduğu durumda kullanılacak */
+    public function set($key,$value,$expiration = null)
     {
-        $file = $this->getDir($key);
+        /* Eğer süre verilmişse cache süresi tutan varaible verilen süre olsun  */
+        if ($expiration != null)
+            $this->cacheExp = $expiration;
 
-        unset($this->cacheData[$key]);
-
+        /* setData değişkeni gelen cache süresi ve cache datasını serialize ederek tutuyor */
         $setData = array(
-            'expire' => $expiration,
+            'expire' => $this->cacheExp,
             'data' => serialize($value)
         );
 
+        /* her key cacheData değişkeninin anahtarı olarak 2 value-key li setData arrayını tutsun */
         $this->cacheData[$key] = $setData;
 
-        if(is_array($this->cacheData[$key]))
-        {
-            if(file_exists($file))
-            {
-                //dosya varsa dosyanın son değiştirilme tarihine bakıyoruz cache süresi geçmişse yeniden yazıyor
-                if($this->is_expire($key) == false) //!file_exist($file)
-                {
-                    unlink($file);
-                    //file_put_contents ~=  fopen(), fwrite() ve fclose()-eğer dosya yoksa oluşturur
-                    $this->write($key);
-                }
-            }else {
-                //dosya yoksa set geldiğinde dosya ilk defa oluşturulmuş olacak
-                $this->write($key);
-            }
+        if ($this->write($key)) {
+            //başarılı ise devam edipte alttaki false ile bitmesin diye func. burada bitiriyoruz
+            return true;
         }
+
+        return false;
     }
 
-    public function get($key)
+    public function get($key, $expiration = null)
     {
-        $file = $this->getDir($key);
+        if ($expiration != null)
+            $this->cacheExp = $expiration;
 
-        if(file_exists($file))
+        if(file_exists($this->getDir($key)))
         {
-            if($this->is_expire($key))
+            if($this->is_expire($key, $this->cacheExp))
             {
-                echo "-cache var </br>";
-                $content = unserialize(file_get_contents($file));
+                $content = unserialize(file_get_contents($this->getDir($key)));
                 return $content;
-            }else {
-                return false;
             }
-        }else {
-            return false;
         }
+
+        return false;
     }
 
     /**
@@ -66,7 +83,7 @@ class Cache
      */
     public function getDir($key)
     {
-        return APP . "Cache/" . md5($key) . ".html";
+        return $this->cacheDirectory . DIRECTORY_SEPARATOR . md5($key) . ".html";
     }
 
     /**
@@ -76,15 +93,17 @@ class Cache
     public function write($key)
     {
         file_put_contents($this->getDir($key), $this->cacheData[$key]['data'], LOCK_EX);
+        return true;
     }
 
     /**
      * @param $key
      * @return boolean is file exp?
      */
-    public function is_expire($key)
+    public function is_expire($key, $exp)
     {
-        if(time() < filemtime($this->getDir($key)) + $this->cacheData[$key]['expire'])
+        /* eğer cache süresi bitmemişse - hala cache tutulacaksa */
+        if(time() < filemtime($this->getDir($key)) + $exp)
         {
             return true;
         }

@@ -26,8 +26,7 @@
 <body>
     <div>
         <?php echo $test; ?>
-        <br>
-        <?php echo $aa; ?>
+
 
     </div>
 </body>

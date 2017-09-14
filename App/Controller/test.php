@@ -17,14 +17,8 @@ class Test extends Controller
         }
     }
 
-    public function tester()
+    public function testx()
     {
-        $test = new Teste();
 
-        $cache = new Cache();
-
-        $cache->set("tt", $test->tester());
-
-        echo $cache->get("tt");
     }
 }

@@ -51,18 +51,14 @@ class Route {
             $router = rtrim($q[0], "/");
 
             @list($full_url, $par) = explode($router, $path_info); //buradaki hatayı incele
-             $parameters = explode("/", $par); //bu hatayı irdele
+            $parameters = explode("/", $par); //bu hatayı irdele
             array_shift($parameters);
 
             if(empty($par))
-            {
                 $new_path = $path_info;
-            }else {
-                /**
-                 * @array $par
-                 */
+            else
                 list($new_path,$_t) = explode($par, $path_info);
-            }
+
 
             if (preg_match("~^$router$~s", $new_path, $param) && $route && $_SERVER['REQUEST_METHOD'] == $request)
             {

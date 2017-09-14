@@ -33,6 +33,8 @@ class Call
             }
         }else {
             call_user_func(self::$callable);
+            /* ikisinin farkı? */
+            //return call_user_func(self::$callable);
         }
     }
 }
