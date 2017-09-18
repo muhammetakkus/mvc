@@ -1,11 +1,8 @@
 {
   "require": {
-    "doctrine/orm": "^2.5",
-    "elasticsearch/elasticsearch": "^5.2",
-    "mongodb/mongodb": "^1.1",
-    "robmorgan/phinx": "^0.9.0"
+    "cooky/url-router": "dev-master"
   },
   "autoload": {
-    "psr-4": { "App\\": "App/" }
+    "psr-4": { "App\\": "" }
   }
 }

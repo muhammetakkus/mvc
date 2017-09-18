@@ -1,12 +1,15 @@
 <?php
 
-
 use App\Core\Controller;
 use App\Core\Src\Cache;
 use App\Model\User;
 
 class Home extends Controller
     {
+        public function aaa(){
+            echo "xxx";
+        }
+
 		public function index()
 		{
             $cache = new Cache();
