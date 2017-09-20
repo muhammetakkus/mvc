@@ -8,12 +8,14 @@ namespace App\Core;
 
 class Controller
 {
+	/* psr-4 kullanıldığı için model çağıran func. ihtiyaç kalmadı */
 	public function model($model)
 	{
 		include_once MODEL . $model . '.php';
 		return new $model;
 	}
 
+	/* */
 	public function view($file, array $data = array())
 	{
 		ob_start();

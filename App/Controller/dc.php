@@ -9,7 +9,5 @@ class Dc extends Controller
     {
         $user = new User;
         $user->setName("mehmet akkuş");
-
-
     }
 }
