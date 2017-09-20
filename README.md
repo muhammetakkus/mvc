@@ -5,7 +5,7 @@ Please check out my project and fix the problems
 # Up and Running
 ```shell
 git clone <repository>
-composer install`
+composer install```
 
 
 # Licence
