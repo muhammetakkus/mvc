@@ -1,5 +1,5 @@
 # MVC
-simple and useful mvc for basic php project. 
+Simple and useful mvc for basic php project. 
 Please check out my project and fix the problems
 
 # Up and Running
