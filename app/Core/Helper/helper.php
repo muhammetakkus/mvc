@@ -1,8 +1,6 @@
-<?php
+<?php namespace Helper;
 
 //$find = preg_grep("/{(.*)}/", $array);
-
-namespace App\Core\Src;
 
 class Helper
 {

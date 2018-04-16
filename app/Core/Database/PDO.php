@@ -4,7 +4,7 @@
 
 /* Singleton PDO Class Örneği */
 
-namespace App\Core\Database;
+namespace Core\Database;
 /*namespace ile kullanmaya başlayınca  '..name is already in use..' hatası veriyordu
   use PDO ekleyince başka sayfalarda namespace ile çalıştı*/
 use PDO;

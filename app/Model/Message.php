@@ -1,4 +1,4 @@
-<?php
+<?php namespace Model;
 /*doctrine orm mantığı model class isminin çoğulu tablo ismi buna Entity deniyor.
     Kolon isimlendirmene göre de değişkenleri oluşturuyorsun. */
 

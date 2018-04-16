@@ -4,49 +4,48 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bf224611bfb8b5c84028461a3d7cb61a",
-    "content-hash": "c93630123a530a695679b9a18bd3f570",
+    "content-hash": "287d0533727a1322cb544786e2d6f62a",
     "packages": [
         {
             "name": "cooky/url-router",
-            "version": "dev-master",
+            "version": "v2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/muhammetakkus/routy.git",
-                "reference": "de750f60caf3d5bccff22ca3b765f1fa413d2a5b"
+                "reference": "b0e7ac6f7f9dc476d98d7517a9be70f628115267"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/muhammetakkus/routy/zipball/de750f60caf3d5bccff22ca3b765f1fa413d2a5b",
-                "reference": "de750f60caf3d5bccff22ca3b765f1fa413d2a5b",
+                "url": "https://api.github.com/repos/muhammetakkus/routy/zipball/b0e7ac6f7f9dc476d98d7517a9be70f628115267",
+                "reference": "b0e7ac6f7f9dc476d98d7517a9be70f628115267",
                 "shasum": ""
+            },
+            "require": {
+                "php": "^7.0"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Routy\\": "src/"
+                    "Routy\\": "router",
+                    "View\\": "view",
+                    "Config\\": "config"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
             "authors": [
                 {
-                    "name": "Muhammet Akkuş",
+                    "name": "Mehmet Akkuş",
                     "email": "muhammetakkuss34@gmail.com"
                 }
             ],
             "description": "Simple PHP Router",
-            "time": "2017-09-14 00:32:39"
+            "time": "2018-04-15T03:51:21+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "cooky/url-router": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

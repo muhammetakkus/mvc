@@ -1,5 +1,5 @@
 <?php
-namespace App\Core\Src;
+namespace Helper;
 
 class Token
 {

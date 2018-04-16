@@ -1,5 +1,5 @@
 <?php
-namespace App\Core\Src;
+namespace Helper;
 
 /* Sorun1 = üstte get tanımlayıp altta kontrol yapılıyor.
             Sayfayı ilk açıldığında set işlemi olduğu için değer geti alan değişkene depolanamıyor
@@ -10,7 +10,7 @@ namespace App\Core\Src;
             örneğin __construct'a var olan keyleri bas diyemiyoruz? glob() ile ekrana basıyor ancak boş?
 
  * */
-/**
+/*
     $cache = new Cache();
 
     $val = $cache->get("test_key",30);
